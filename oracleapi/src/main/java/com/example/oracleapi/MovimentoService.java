@@ -60,6 +60,10 @@ public class MovimentoService {
                     lista.add(row);
                 }
             }
+            catch (Exception e) {
+                e.printStackTrace(); // Para ver o erro no console
+                throw new RuntimeException("Erro ao buscar movimento: " + e.getMessage());
+            }
             return lista;
         }
     }
