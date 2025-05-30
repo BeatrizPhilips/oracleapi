@@ -107,16 +107,17 @@ public class PatrimonioService {
         return response;
     }
 
-    public Map<String, Object> updatePatrimonio(PatrimonioDTO dto) throws SQLException {
+    public List<Map<String, Object>> updatePatrimonio(int codigoBarras,PatrimonioDTO dto) throws SQLException {
         Map<String, Object> response = new HashMap<>();
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement stmt = conn.prepareCall("{call T09E_ATUALIZAR_ULTIMA_MANUTENCAO(?, ?)}")) {
 
-            stmt.setString(1, dto.codigoBarras);
+            stmt.setInt(1, codigoBarras);
             stmt.setDate(2, java.sql.Date.valueOf(dto.ultimaManutencao));
 
             stmt.execute();
+            conn.commit();
 
             response.put("success", true);
             response.put("message", "Data de última manutenção atualizada com sucesso");
@@ -125,7 +126,7 @@ public class PatrimonioService {
             response.put("message", "Erro ao atualizar manutenção: " + e.getMessage());
         }
 
-        return response;
+        return buscarPatrimonioCDBarras(dto.codigoBarras);
     }
 
 

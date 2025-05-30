@@ -35,10 +35,9 @@ public class PatrimonioController {
     }
 
 
-    @PutMapping("/patrimonios")
-    public Map<String, Object> atualizar(@RequestBody PatrimonioDTO dto) throws SQLException {
-        return patrimonioService.updatePatrimonio(dto);
+    @PutMapping("/patrimonios/{codigoBarras}")
+    public List<Map<String, Object>> atualizar(@PathVariable int codigoBarras, @RequestBody PatrimonioDTO dto) throws SQLException {
+        return patrimonioService.updatePatrimonio(codigoBarras, dto);
     }
-
 
 }
