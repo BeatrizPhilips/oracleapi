@@ -129,8 +129,4 @@ public class PatrimonioService {
         return buscarPatrimonioCDBarras(dto.codigoBarras);
     }
 
-
-
-
-
 }
